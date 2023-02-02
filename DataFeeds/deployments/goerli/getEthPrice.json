@@ -1,0 +1,67 @@
+{
+  "address": "0xAf8579e2252Db724a4b0bb9d6F3aDD73D920175C",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "priceFeedAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "getEthPriceInUSD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x509048d6904ca6afcd0f15ef6d538203c1c3754d9da47d3cfc7b15d1a3ef03cc",
+  "receipt": {
+    "to": null,
+    "from": "0x05dA33083f4f532309Df7e6d49bE3ca8071fB1a0",
+    "contractAddress": "0xAf8579e2252Db724a4b0bb9d6F3aDD73D920175C",
+    "transactionIndex": 72,
+    "gasUsed": "194412",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xa4828d24e35cf843bd7a549712ecc3553d03f415c19835775cb2546f0477c30d",
+    "transactionHash": "0x509048d6904ca6afcd0f15ef6d538203c1c3754d9da47d3cfc7b15d1a3ef03cc",
+    "logs": [],
+    "blockNumber": 8421811,
+    "cumulativeGasUsed": "13495038",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e"
+  ],
+  "numDeployments": 3,
+  "solcInputHash": "2f94192a5cad971b80698f24efdcff04",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.18+commit.87f61d96\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"priceFeedAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"getEthPriceInUSD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/getEthPrice.sol\":\"getEthPrice\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\ninterface AggregatorV3Interface {\\n  function decimals() external view returns (uint8);\\n\\n  function description() external view returns (string memory);\\n\\n  function version() external view returns (uint256);\\n\\n  function getRoundData(uint80 _roundId)\\n    external\\n    view\\n    returns (\\n      uint80 roundId,\\n      int256 answer,\\n      uint256 startedAt,\\n      uint256 updatedAt,\\n      uint80 answeredInRound\\n    );\\n\\n  function latestRoundData()\\n    external\\n    view\\n    returns (\\n      uint80 roundId,\\n      int256 answer,\\n      uint256 startedAt,\\n      uint256 updatedAt,\\n      uint80 answeredInRound\\n    );\\n}\\n\",\"keccak256\":\"0x6e6e4b0835904509406b070ee173b5bc8f677c19421b76be38aea3b1b3d30846\",\"license\":\"MIT\"},\"contracts/getEthPrice.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.18;\\r\\n\\r\\n//V2.0\\r\\n\\r\\nimport \\\"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol\\\";\\r\\n\\r\\ncontract getEthPrice {\\r\\n\\r\\n    AggregatorV3Interface internal immutable i_priceFeed;\\r\\n\\r\\n    constructor(address priceFeedAddress) {\\r\\n        i_priceFeed = AggregatorV3Interface(priceFeedAddress);\\r\\n    }\\r\\n\\r\\n    function getEthPriceInUSD() public view returns (uint) {\\r\\n        /*\\r\\n        roundId: The round ID.\\r\\n        answer: The price.\\r\\n        startedAt: Timestamp of when the round started.\\r\\n        updatedAt: Timestamp of when the round was updated.\\r\\n        answeredInRound: The round ID of the round in which the answer was computed.\\r\\n        \\r\\n        (\\r\\n            uint80 roundID,\\r\\n            int price,\\r\\n            uint startedAt,\\r\\n            uint timeStamp,\\r\\n            uint80 answeredInRound\\r\\n        ) = priceFeed.latestRoundData(); */\\r\\n        (, int256 price, , , ) = i_priceFeed.latestRoundData();\\r\\n        return uint256(price);\\r\\n    }\\r\\n}\",\"keccak256\":\"0xa36b0d36475aa4205a2f4c51ba93d61a972d660b899bbc0aba5603a9069f45c1\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60a060405234801561001057600080fd5b50604051610391380380610391833981810160405281019061003291906100cf565b8073ffffffffffffffffffffffffffffffffffffffff1660808173ffffffffffffffffffffffffffffffffffffffff1681525050506100fc565b600080fd5b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061009c82610071565b9050919050565b6100ac81610091565b81146100b757600080fd5b50565b6000815190506100c9816100a3565b92915050565b6000602082840312156100e5576100e461006c565b5b60006100f3848285016100ba565b91505092915050565b60805161027b61011660003960006053015261027b6000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c8063787beb3414610030575b600080fd5b61003861004e565b6040516100459190610106565b60405180910390f35b6000807f000000000000000000000000000000000000000000000000000000000000000073ffffffffffffffffffffffffffffffffffffffff1663feaf968c6040518163ffffffff1660e01b815260040160a060405180830381865afa1580156100bc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906100e091906101ca565b5050509150508091505090565b6000819050919050565b610100816100ed565b82525050565b600060208201905061011b60008301846100f7565b92915050565b600080fd5b600069ffffffffffffffffffff82169050919050565b61014581610126565b811461015057600080fd5b50565b6000815190506101628161013c565b92915050565b6000819050919050565b61017b81610168565b811461018657600080fd5b50565b60008151905061019881610172565b92915050565b6101a7816100ed565b81146101b257600080fd5b50565b6000815190506101c48161019e565b92915050565b600080600080600060a086880312156101e6576101e5610121565b5b60006101f488828901610153565b955050602061020588828901610189565b9450506040610216888289016101b5565b9350506060610227888289016101b5565b925050608061023888828901610153565b915050929550929590935056fea2646970667358221220e281dddda6bb394ee97259214d6b91f54f969a74fd29808b08894cdc9d2a16c364736f6c63430008120033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c8063787beb3414610030575b600080fd5b61003861004e565b6040516100459190610106565b60405180910390f35b6000807f000000000000000000000000000000000000000000000000000000000000000073ffffffffffffffffffffffffffffffffffffffff1663feaf968c6040518163ffffffff1660e01b815260040160a060405180830381865afa1580156100bc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906100e091906101ca565b5050509150508091505090565b6000819050919050565b610100816100ed565b82525050565b600060208201905061011b60008301846100f7565b92915050565b600080fd5b600069ffffffffffffffffffff82169050919050565b61014581610126565b811461015057600080fd5b50565b6000815190506101628161013c565b92915050565b6000819050919050565b61017b81610168565b811461018657600080fd5b50565b60008151905061019881610172565b92915050565b6101a7816100ed565b81146101b257600080fd5b50565b6000815190506101c48161019e565b92915050565b600080600080600060a086880312156101e6576101e5610121565b5b60006101f488828901610153565b955050602061020588828901610189565b9450506040610216888289016101b5565b9350506060610227888289016101b5565b925050608061023888828901610153565b915050929550929590935056fea2646970667358221220e281dddda6bb394ee97259214d6b91f54f969a74fd29808b08894cdc9d2a16c364736f6c63430008120033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
