@@ -17,6 +17,9 @@ const { developmentChains } = require("../../helper-hardhat-config")
         describe("getEthPrice", async function() {
             it("should get the Eth Price in USD", async function() {
                 // In tests, 10**18 decimals, but if you want to get the price with in USD on Goerli, there will be 10**8 decimals.
+                // We could change that in the helper-hardhat-config.js file
+                /* const DECIMALS = "18"
+                const INITIAL_PRICE = "200000000000000000000" */
                 let price = await getEthPrice.getEthPriceInUSD() / 10**18
                 assert.equal(price, 200)  
             })
