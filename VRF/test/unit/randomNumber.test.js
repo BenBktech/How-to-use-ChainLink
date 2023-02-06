@@ -24,6 +24,17 @@ const { developmentChains } = require("../../helper-hardhat-config")
                 // const theRandomNumber = await randomNumber.s_requests(parseInt(lastRequestId))
                 // console.log(theRandomNumber.toString()) 
                 await new Promise(async (resolve, reject) => {
+                    try {
+                        const requestNftResponse = await randomNumber.requestRandomWords()
+                        const requestNftReceipt = await requestNftResponse.wait(1)
+                        await vrfCoordinatorV2Mock.fulfillRandomWords(
+                            requestNftReceipt.events[1].args.requestId,
+                            randomNumber.address
+                        )
+                    } catch (e) {
+                        console.log(e)
+                        reject(e)
+                    }
                     randomNumber.once("RequestFulfilled", async () => {
                         try {
                             //Get the random number there
@@ -36,17 +47,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
                             reject(e)
                         }
                     })
-                    try {
-                        const requestNftResponse = await randomNumber.requestRandomWords()
-                        const requestNftReceipt = await requestNftResponse.wait(1)
-                        await vrfCoordinatorV2Mock.fulfillRandomWords(
-                            requestNftReceipt.events[1].args.requestId,
-                            randomNumber.address
-                        )
-                    } catch (e) {
-                        console.log(e)
-                        reject(e)
-                    }
+                    
                 })
                
             })
