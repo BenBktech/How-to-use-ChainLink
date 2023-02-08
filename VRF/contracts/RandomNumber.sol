@@ -45,10 +45,6 @@ contract RandomNumber is VRFConsumerBaseV2, ConfirmedOwner {
     // Cannot exceed VRFCoordinatorV2.MAX_NUM_WORDS.
     uint32 private constant NUM_WORDS = 1;
 
-    /**
-     * HARDCODED FOR GOERLI
-     * COORDINATOR: 0x2Ca8E0C643bDe4C2E08ab1fA0da3401AdAD7734D
-     */
     constructor(
         address vrfCoordinatorV2,
         uint64 subscriptionId,
